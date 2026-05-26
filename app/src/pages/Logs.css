@@ -1,0 +1,148 @@
+.logs-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.logs-back {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.logs-divider {
+  color: var(--border);
+}
+
+.logs-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.logs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 200px;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.logs-stat-card {
+  padding: 16px 20px !important;
+  background: var(--bg) !important;
+  border: none !important;
+}
+
+.logs-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+
+.logs-stat-value {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.logs-pie-card {
+  padding: 10px 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.logs-pie-label {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  align-self: flex-start;
+  padding-left: 4px;
+}
+
+.logs-pie-legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.logs-pie-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.logs-pie-legend-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.logs-table-card {
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.logs-table-header {
+  padding: 16px 20px 12px;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.logs-table-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.logs-table-count {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.logs-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 0.5px solid var(--border);
+}
+
+.logs-page-info {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.logs-pagination-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.logs-page-button {
+  height: 32px !important;
+  padding: 0 14px !important;
+  font-size: 13px !important;
+}
+
+.logs-page-number {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.logs-page-number.active {
+  background: var(--accent) !important;
+  color: var(--surface) !important;
+  border: none !important;
+}

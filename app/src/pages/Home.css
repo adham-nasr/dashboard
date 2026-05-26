@@ -1,0 +1,19 @@
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.home-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.home-meta {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
