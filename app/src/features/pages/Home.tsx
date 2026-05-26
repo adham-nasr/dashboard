@@ -4,23 +4,20 @@ import Button from "../components/Button";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import AppsTable from "../features/AppsTable";
-import { C } from "../utils/constants";
+import { C, tempapiKey } from "../utils/constants";
 import Modal from "../components/Modal";
 import "./Home.css";
 import { useQuery } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
 import { getApplications } from "../api/application";
-import { useAuth } from "../hooks/useAuth";
 
 function Home () {
 
   const [showCreate, setShowCreate] = useState(false);
 
-  const {user } = useAuth()
-
   const {data,isLoading, error} = useQuery({
     queryKey: ['applications'],
-    queryFn: ()=> getApplications(user!.apiKey)
+    queryFn: ()=> getApplications(tempapiKey)
   })
 
   if(isLoading)

@@ -61,7 +61,3 @@ export const NAV_ITEMS = [
   { key: "apikey",  label: "API Key",       icon: "⌗" },
   { key: "account", label: "Account",       icon: "◉" },
 ];
-
-
-
-export const tempapiKey = "1234"

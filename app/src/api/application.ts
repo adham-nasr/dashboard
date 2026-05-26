@@ -1,9 +1,10 @@
 import axios from "axios"
 import { baseUrl } from "../config"
+import type { Applications } from "../utils/types";
 
 export const getApplications = async(apiKey:string)=>{
 
-    const res = await axios.get(baseUrl+"/api/applications",{
+    const res = await axios.get<Applications>(baseUrl+"/api/applications",{
         headers: {
             Authorization:"Bearer "+apiKey
         }

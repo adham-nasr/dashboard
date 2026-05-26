@@ -26,7 +26,8 @@ export type Applications = Application[]
 
 export type AuthState = User | null;
 
+export type Dispatch = React.Dispatch<Record<string, any>>
 export type AuthContextType = {
   user: AuthState;
-  dispatch: React.Dispatch<string>;
+  dispatch: Dispatch;
 };

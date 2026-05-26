@@ -2,8 +2,9 @@ import { useNavigate } from "react-router";
 import Table from "../components/Table";
 import Tag from "../components/Tag";
 import { APPS, C, STATUS_MAP } from "../utils/constants";
+import type { Applications } from "../utils/types";
 
-function AppsTable({data}:any){
+function AppsTable({data}:{data:Applications}){
 
     const navigate = useNavigate()
     const rowClickHandler= (id:string)=>{
