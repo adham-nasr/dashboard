@@ -1,13 +1,15 @@
 import {  type Request, type Response, type NextFunction, application } from 'express';
-import { createApplication, fetchAllApplications, fetchApplicationByName, removeApplication } from '../repositories/applicationsRepository.js';
+import { createApplication, fetchAllApplications, fetchApplicationByName, removeApplicationByName } from '../repositories/applicationsRepository.js';
 import type { AuthenticationRequest } from '../types.js';
 import type { applicationType } from '../models/application.js';
 import mongoose from 'mongoose';
+import app from '../app.js';
 
 export const getAllApplications = async (request:AuthenticationRequest , response:Response , next:NextFunction)=>{
     const userId = request.userId!;
 
     const data = await fetchAllApplications(userId)
+    console.log(data)
     response.status(200).json(data)
 }
 
@@ -40,8 +42,8 @@ export const getApplicationByName = async(request:AuthenticationRequest , respon
 
 
 export const deleteApplication = async(request:AuthenticationRequest , response:Response , next:NextFunction)=>{
-    const applicationId:string = String(request.params?.id)
+    const applicationName:string = String(request.params?.name)
     const userId = request.userId!
-    const data = await removeApplication(userId,applicationId)
+    const data = await removeApplicationByName(userId,applicationName)
     response.status(204).send()
 }

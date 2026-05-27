@@ -12,13 +12,42 @@ export type UserCreate = Pick<User, "username"|"email"|"password">
 
 export type UserLogin = Omit<UserCreate,"username">
 
+
+export enum LEVELS {
+    INFO = "info",
+    ERROR = "error",
+    WARN = "warn"
+}
+
+export type Log = {
+    _id:string,
+    applicationId:string,
+    message:string,
+    level:LEVELS,
+    count?:string,
+    createdAt:Date,
+    UpdatedAt:Date,
+}
+
+export type Logs = Log[];
+
+export type LogsStats = {
+    logs:Logs,
+    errorCount:number,
+    infoCount:number,
+    warnCount:number
+}
+
 export type Application = {
     _id:string,
     name:string,
     user_id:string,
     createdAt:Date,
     UpdatedAt:Date,
+    logCount:number
 }
+
+
 
 export type ApplicationCreate = Pick<Application,"name">
 
@@ -31,3 +60,5 @@ export type AuthContextType = {
   user: AuthState;
   dispatch: Dispatch;
 };
+
+

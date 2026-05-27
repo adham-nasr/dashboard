@@ -1,6 +1,6 @@
 import axios from "axios";
 import type {Dispatch, User,  UserCreate, UserLogin } from "../utils/types"
-import { baseUrl } from "../config";
+import { baseUrl } from "../utils/config";
 import { ACTION_TYPES } from "../reducers/authReducer";
 
 
@@ -17,10 +17,12 @@ export async function login(dispatch:Dispatch,userData:UserLogin){
 }
 
 export async function logout(dispatch:Dispatch,apiKey:string){
+    console.log("Logging OUT ... ")
+    console.log("API KEY ", apiKey)
     try{
-        await axios.post<User>(baseUrl+"/api/users/logout",{
+        await axios.post(baseUrl+"/api/users/logout",null,{
             headers: {
-                Authorization: "Bearer "+apiKey
+                Authorization:"Bearer "+apiKey
             }
         })
         dispatch({type:ACTION_TYPES.DELETE})

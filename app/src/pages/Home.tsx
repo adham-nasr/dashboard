@@ -7,9 +7,9 @@ import AppsTable from "../features/AppsTable";
 import { C } from "../utils/constants";
 import Modal from "../components/Modal";
 import "./Home.css";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ClipLoader } from "react-spinners";
-import { getApplications } from "../api/application";
+import { createApplication, getApplications } from "../api/application";
 import { useAuth } from "../hooks/useAuth";
 
 function Home () {
@@ -18,9 +18,20 @@ function Home () {
 
   const {user } = useAuth()
 
+  const queryClient = useQueryClient()
+
   const {data,isLoading, error} = useQuery({
     queryKey: ['applications'],
     queryFn: ()=> getApplications(user!.apiKey)
+  })
+
+  const postMutaution = useMutation({
+    mutationFn: async(args:{name:string})=>{
+      createApplication(args.name,user?.apiKey || "")
+    },
+    onSuccess:()=>{
+      queryClient.invalidateQueries({queryKey:["applications"]})
+    }
   })
 
   if(isLoading)
@@ -46,6 +57,7 @@ function Home () {
               initialValues={{ name: "" }}
               onSubmit={(values) => {
                 console.log("Creating application:", values);
+                postMutaution.mutate(values)
                 setShowCreate(false);
               }}
             >

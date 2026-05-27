@@ -9,6 +9,13 @@ function ApiKey  () {
   const [revealed, setRevealed] = useState(false);
   const { user }= useAuth()
   const key = user?.apiKey || "sk-live-xK9mP2qR7vL4nW0aZ5bC8dE3fG6hI1jK4lM7";
+
+  const revealHandler = (val:boolean)=>{
+    setRevealed(val);
+  }
+
+  const visibleApiValue = revealed ? key : key.slice(0, 10) + "••••••••••••••••••••••"
+
   return (
     <div className="api-key-page">
       <h2 className="api-key-title">API Key</h2>
@@ -19,7 +26,7 @@ function ApiKey  () {
         <div className="api-key-label">Your secret key</div>
         <div className="api-key-secret">
           <code className="api-key-value">
-            {revealed ? key : key.slice(0, 10) + "••••••••••••••••••••••"}
+            {visibleApiValue}
           </code>
           <Button variant="ghost" onClick={() => setRevealed(v => !v)} className="api-key-action">
             {revealed ? "Hide" : "Reveal"}
@@ -29,7 +36,9 @@ function ApiKey  () {
 
       <Card className="api-key-usage-card">
         <div className="api-key-usage-title">Usage example</div>
-        <pre className="api-key-code">{`fetch("https://api.logr.io/v1/events", {\n  headers: {\n    "Authorization": "Bearer YOUR_API_KEY"\n  }\n})`}</pre>
+        <pre className="api-key-code">
+          {`fetch("https://domain/api/applications/:applicationName/logs", {\n  headers: {\n    "Authorization": "Bearer ${visibleApiValue}"\n  }\n})`}
+        </pre>
       </Card>
     </div>
   );

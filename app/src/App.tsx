@@ -69,11 +69,6 @@ import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 
 
 /* ─── APP DETAIL / DASHBOARD PAGE ─── */
-const pieData = (app) => [
-  { name: "Info",  value: app.logs - app.errors - app.warns },
-  { name: "Warn",  value: app.warns },
-  { name: "Error", value: app.errors },
-];
 
 
 /* ─── ROOT ─── */
@@ -97,7 +92,7 @@ export default function App() {
             <Route element={<ProtectedRoutes />}>
               <Route element={<MainLayout />} >
                 <Route path="/" element={<Home />} />
-                <Route path="/Logs/:id" element = {<Logs /> } />
+                <Route path="/Logs/:name" element = {<Logs /> } />
                 <Route path="/apiKey" element = {<ApiKey />} />
               </ Route >
             </Route>

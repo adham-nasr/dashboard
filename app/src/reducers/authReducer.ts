@@ -11,7 +11,7 @@ export function authReducer(user,action){
             return {...action.payload}
         }
         case ACTION_TYPES.DELETE:{
-            return {}
+            return null
         }
         default: {
             throw Error('Unknown action: ' + action.type);

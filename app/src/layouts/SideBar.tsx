@@ -1,16 +1,23 @@
 import { useLocation, useNavigate } from "react-router";
 import { C, NAV_ITEMS } from "../utils/constants";
 import "./SideBar.css";
+import { useAuth } from "../hooks/useAuth";
+import Button from "../components/Button";
 function Sidebar () {
 
     let navigate = useNavigate()
     const location = useLocation()
 
+    const {logout,user} = useAuth()
+
     const isHome = location.pathname === '/';
     const isApiKey = location.pathname === '/ApiKey'
 
-    const logoutHandler = ()=>{
-        console.log("logging out ....")
+    const logoutHandler = (e:Event)=>{
+        e.preventDefault()
+        console.log("logging .. ")
+        logout(user?.apiKey || "")
+
     }
 
     return(
@@ -37,8 +44,10 @@ function Sidebar () {
 
         {/* Logout */}
         <div className="sidebar-logout">
-        <div onClick={logoutHandler} className="sidebar-logout-button">
-            <span>↩</span> Logout
+        <div className="sidebar-logout-button">
+            <Button onClick={logoutHandler}>
+                <span>↩</span> Logout
+            </Button>
         </div>
         </div>
     </div>

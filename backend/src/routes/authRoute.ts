@@ -7,8 +7,7 @@ const authRoute = Router();
 
 authRoute.post('/login',asyncHandler(login));
 authRoute.post('/register',asyncHandler(register))
-authRoute.use(authenticationMiddleware)
-authRoute.post('/logout',asyncHandler(logout))
+authRoute.post('/logout',authenticationMiddleware,asyncHandler(logout))
 
 
 export default authRoute

@@ -56,6 +56,7 @@ export const login = async (request:Request , response:Response , next:NextFunct
 }
 
 export const logout = async (request:AuthenticationRequest , response:Response , next:NextFunction) => {
+    console.log("logout handler starts ...")
     const userId = request.userId!;
     console.log(userId)
     const {deletedCount} = await removeUserKeys(userId)
