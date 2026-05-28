@@ -5,7 +5,7 @@ import type { LogsStats } from "../utils/types";
 
 function PieStat({logStats}:{logStats:LogsStats}){
     const pieData = [
-      { name: "Info",  value: logStats.logs.length - logStats.errorCount - logStats.warnCount },
+      { name: "Info",  value: logStats.totalCount - logStats.errorCount - logStats.warnCount },
       { name: "Warn",  value: logStats.warnCount },
       { name: "Error", value: logStats.errorCount },
     ];

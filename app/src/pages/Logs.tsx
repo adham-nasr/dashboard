@@ -13,12 +13,16 @@ import { useAuth } from "../hooks/useAuth";
 import { ClipLoader } from "react-spinners";
 import { getLogsStats } from "../utils/helpers";
 import PieStat from "../features/PieStat";
+import Search from "../components/Search";
 
 
 function Logs () {
-  // const [page, setPage] = useState(1);
-  // const totalPages = Math.ceil(LOGS.length / LOGS_PER_PAGE);
-  // const sliced = LOGS.slice((page - 1) * LOGS_PER_PAGE, page * LOGS_PER_PAGE);
+
+  const [page, setPage] = useState(1);
+  const LOGS_PER_PAGE = 5;
+
+  const [filterParams,setFilterParams ]= useState<Record<string,string>>({})
+
   const navigate = useNavigate()
 
   const {user} = useAuth()
@@ -29,24 +33,35 @@ function Logs () {
 
   console.log("parmas")
   console.log(params)
-
-
+  console.log("filterParams = ")
+  console.log(filterParams)
   const {data,error,isLoading} = useQuery({
-    queryKey:["logs",appName],
-    queryFn:()=>getLogsByApplicationName(appName,user!.apiKey)
+    queryKey:["logs",appName,filterParams,page],
+    queryFn:()=>getLogsByApplicationName(appName,user!.apiKey,
+      {...filterParams,
+        limit:LOGS_PER_PAGE.toString(),
+        offset:((page-1)*LOGS_PER_PAGE).toString()
+      }
+    )
   })
 
   const backHandler = ()=>{
     navigate('/');
   }
-
-  if(isLoading)
-    return <ClipLoader color={C.accent} size={100} loading={isLoading} />
   
-  if(error || !data)
-    return <div>{error?.message}</div>
+  if(error)
+  {
+    console.log("ENTERED >>>>> ")
+        return <div>{error?.message}</div>
 
-  const logsStats = getLogsStats(data);
+  }
+
+  const logsStats = data?.stats
+  const logs = data?.logs || []
+
+
+  const totalPages = logsStats?.totalCount? Math.ceil(logsStats.totalCount / LOGS_PER_PAGE) : 0;
+  // const sliced = logsStats.logs.slice((page - 1) * LOGS_PER_PAGE, page * LOGS_PER_PAGE);
 
   console.log("LOG STATS   .  .. ")
   console.log(logsStats)
@@ -61,39 +76,32 @@ function Logs () {
         {/* <Tag label={app.status}
           className="logs-tag"
           style={{ ...(STATUS_MAP[app.status] || STATUS_MAP.Active), border: "none" }} /> */}
+          
       </div>
 
       {/* Stat cards + pie */}
       <div className="logs-grid">
         {[
-          { label: "Total Logs",  value: logsStats.logs.length.toLocaleString() },
-          { label: "Errors",      value: logsStats.errorCount, danger: logsStats.errorCount > 0 },
-          { label: "Warnings",    value: logsStats.warnCount },
+          { label: "Total Logs",  value: logsStats?.totalCount },
+          { label: "Errors",      value: logsStats?.errorCount, danger: logsStats?.errorCount || false },
+          { label: "Warnings",    value: logsStats?.warnCount },
         ].map(({ label, value, danger }) => (
           <Card key={label} className="logs-stat-card">
             <div className="logs-stat-label">{label}</div>
             <div className="logs-stat-value" style={{ color: danger ? C.danger : C.text }}>{value}</div>
           </Card>
         ))}
-
-        {/* Pie chart */}
-        <PieStat logStats={logsStats}/>
-        {/*  */}
+        {logsStats && <PieStat logStats={logsStats}/> }
       </div>
+        <Search setFilterParams={setFilterParams} setPage={setPage}/>
 
       {/* Logs table */}
-      <Card className="logs-table-card">
-        <div className="logs-table-header">
-          <div className="logs-table-title">Event Logs</div>
-          {/* <div className="logs-table-count">
-            Showing {(page - 1) * LOGS_PER_PAGE + 1}–{Math.min(page * LOGS_PER_PAGE, LOGS.length)} of {LOGS.length} entries
-          </div> */}
-        </div>
-        
-        <LogsTable logs={logsStats.logs}/>
+      {isLoading &&  <ClipLoader color={C.accent} size={100} loading={isLoading}  />}
+      <Card className="logs-table-card"> 
+        <LogsTable logs={logs} />
 
         {/* Pagination */}
-        {/* <div className="logs-pagination">
+        <div className="logs-pagination">
           <div className="logs-page-info">Page {page} of {totalPages}</div>
           <div className="logs-pagination-controls">
             <Button variant="ghost" onClick={() => setPage(p => Math.max(1, p - 1))} className="logs-page-button">
@@ -106,7 +114,7 @@ function Logs () {
               Next →
             </Button>
           </div>
-        </div> */}
+        </div>
       </Card>
     </div>
   );

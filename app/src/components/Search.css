@@ -1,0 +1,92 @@
+.filterSections{
+  display: flex;
+  justify-content: center;
+}
+.filterComponents{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  justify-content: center;
+  gap: 0px 10px;
+  margin:10px 0;
+}
+.searchSection {
+    margin: 20px;
+    
+  }
+  .searchBarContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .searchBar {
+    width: 400px;
+    height: 40px;
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 16px;
+  }
+  .searchIcon {
+    color: "#898989";
+    font-size: 28;
+    align-self: "center";
+    padding-left: "5%";
+    background-color:"yellow";
+  }
+ 
+  .searchDiv{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .searchDiv .searchButton{
+    margin:10px;
+    display:inline-block;
+    margin-left:40px;
+    margin-right:0;
+    font-size: 18px;
+    width: 130px;
+    height: 50px;
+    border-radius: 6px;
+  }
+  .searchDiv a{
+    color: var(--blue2);
+    background-color: var(--blue1);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .searchDiv_a_History{
+    color: var(--green2);
+    background-color: var(--green1);
+  }
+
+.searchSelectContainer{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.searchSelect{
+  width: 150px;
+  height: 40px;
+  border-radius: 6px;
+  padding: 0 10px;
+  font-size: 16px;
+
+}
+  
+
+.clearButton{
+  margin:10px;
+  display:inline-block;
+  margin-left:20px;
+  margin-right:0;
+  font-size: 18px;
+  width: 110px;
+  height: 50px;
+  border-radius: 6px;
+  background-color: var(--accentBg)!important;
+  color: var(--text) !important;
+}

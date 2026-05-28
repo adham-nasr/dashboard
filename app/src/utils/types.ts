@@ -19,6 +19,7 @@ export enum LEVELS {
     WARN = "warn"
 }
 
+
 export type Log = {
     _id:string,
     applicationId:string,
@@ -31,8 +32,13 @@ export type Log = {
 
 export type Logs = Log[];
 
-export type LogsStats = {
+export type recivedLogs = {
     logs:Logs,
+    stats:LogsStats
+}
+
+export type LogsStats = {
+    totalCount:number,
     errorCount:number,
     infoCount:number,
     warnCount:number

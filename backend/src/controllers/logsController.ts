@@ -2,7 +2,8 @@ import type { NextFunction,Response } from "express";
 import type { AuthenticationRequest } from "../types.js";
 import { fetchApplicationById, fetchApplicationByName } from "../repositories/applicationsRepository.js";
 import type { logType } from "../models/log.js";
-import { createLog, fetchAllLogs } from "../repositories/logsRepository.js";
+import { countLogs, createLog, fetchAllLogs, fetchAllLogsByPage } from "../repositories/logsRepository.js";
+import type { SortOrder } from "mongoose";
 
 
 
@@ -10,6 +11,36 @@ export const getAllLogs = async (request:AuthenticationRequest , response:Respon
     const userId = request.userId!;
 
     const  name = request.params.name
+
+    const sortingQuery = request.query?.sortingAlgo?.toString()
+    const message = request.query?.message?.toString()
+    const level = request.query?.level;
+    const limit = request.query?.limit?.toString();
+    const offset = request.query?.offset?.toString();
+    let sortingAlgo:Record<string,1|-1> = {createdAt:-1}
+    if(sortingQuery)
+    {
+        if(sortingQuery[0]==="-")
+            sortingAlgo = {
+                [sortingQuery.slice(1)]:-1
+            }
+        else
+            sortingAlgo = {
+                [sortingQuery]:1
+            }
+
+    }
+    let filters:Record<string,string|any>={}
+    if(message)
+    {
+        const safeMessag = RegExp.escape(message);
+        filters["message"]={
+            "$regex": new RegExp(safeMessag,'i')
+        }
+    }
+    if(level)
+        filters["level"] = level.toString()
+    console.log(request.query)
     // console.log(request)
     console.log(request.params)
     console.log(name)
@@ -19,11 +50,19 @@ export const getAllLogs = async (request:AuthenticationRequest , response:Respon
     const application = await fetchApplicationByName(userId,name)
     if(!application)
         return response.status(400).json({message:"Invalid application data"})
-    const logs = await fetchAllLogs(application._id.toString())
-    return response.status(200).json(logs)
+    const logs = limit && offset ?  await fetchAllLogsByPage(application._id.toString(),parseInt(limit),parseInt(offset),filters,sortingAlgo) 
+                                :
+                                    await fetchAllLogs(application._id.toString(),filters,sortingAlgo)
+    let total = await countLogs(application._id.toString())
+    total = total.length ? total[0] : total
+    console.log("TOTAL ... ")
+    console.log(total)
+    return response.status(200).json({logs:logs,stats:total})
 }
 
 export const postLog = async (request:AuthenticationRequest , response:Response , next:NextFunction)=>{
+    console.log("reqUEST > BODY")
+    console.log(request.body)
     const userId = request.userId!;
     const name = request.params.name
     let logData:logType = request.body

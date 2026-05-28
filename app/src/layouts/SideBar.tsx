@@ -11,7 +11,7 @@ function Sidebar () {
     const {logout,user} = useAuth()
 
     const isHome = location.pathname === '/';
-    const isApiKey = location.pathname === '/ApiKey'
+    const isApiKey = location.pathname === '/apiKey'
 
     const logoutHandler = (e:Event)=>{
         e.preventDefault()

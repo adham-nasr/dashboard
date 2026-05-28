@@ -9,8 +9,7 @@ import { createApiKey, removeUserKeys } from '../repositories/apiKeyRepository.j
 import { generateApiKey } from '../utils/apiKey.js';
 
 export const register = async(request:Request , response:Response , next:NextFunction) => {
-        console.log("body")
-        console.log(request.body)
+
         const {email,password,username} = request.body;
         if( !email || !password)
             return response.status(400).json({message:"Invalid email or password"});
@@ -28,22 +27,16 @@ export const register = async(request:Request , response:Response , next:NextFun
 
 export const login = async (request:Request , response:Response , next:NextFunction) => {
     const {email,password} = request.body;
-    console.log("1")
     if(!email || !password)
         return response.status(400).json({message:"Invalid email or password format"})
-    console.log("2")
 
     const user = await fetchUserByEmail(email);
-    console.log("USER")
-    console.log(user)
+
     if(!user)
         return response.status(400).json({message:"email not found , register ?"})
-    
-    console.log("sent password" , password)
-    console.log("sent password afrer hash" , await hashPasssword(password))
+
 
     const verdict = await verifyPassword(password,user.password!);
-    console.log("verdict" , verdict)
     if(!verdict)
         return response.status(400).json({message:"Invalid email or password"})
     
@@ -56,11 +49,8 @@ export const login = async (request:Request , response:Response , next:NextFunct
 }
 
 export const logout = async (request:AuthenticationRequest , response:Response , next:NextFunction) => {
-    console.log("logout handler starts ...")
     const userId = request.userId!;
-    console.log(userId)
     const {deletedCount} = await removeUserKeys(userId)
-    console.log(deletedCount)
     if(!deletedCount)
         return response.status(400).json({message:"Couldn't log out"})
 

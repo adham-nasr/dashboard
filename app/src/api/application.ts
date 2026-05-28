@@ -1,6 +1,6 @@
 import axios from "axios"
 import { baseUrl } from "../utils/config"
-import type { Applications, Logs } from "../utils/types";
+import type { Applications, Logs, recivedLogs } from "../utils/types";
 
 export const getApplications = async(apiKey:string)=>{
 
@@ -35,14 +35,21 @@ export const deleteApplicationByName = async(name:string,apiKey:string)=>{
 } 
 
 
-export const getLogsByApplicationName = async(name:string,apiKey:string)=>{
+export const getLogsByApplicationName = async(name:string,apiKey:string,filterParams:Record<string,string>)=>{
 
     const safeName = encodeURIComponent(name)
+    let query = "?";
+    for(let key in filterParams)
+    {
+        query+=(key+"="+encodeURIComponent(filterParams[key]))
+        query+="&" 
+    }
+    query = query.slice(0,-1)
 
     console.log("SAFE NAME = ")
     console.log(safeName)
 
-    const res = await axios.get<Logs>(baseUrl+`/api/applications/${safeName}/logs`,{
+    const res = await axios.get<recivedLogs>(baseUrl+`/api/applications/${safeName}/logs`+query,{
         headers: {
             Authorization:"Bearer "+apiKey
         },

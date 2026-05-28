@@ -12,6 +12,8 @@ app.use(cors({
     origin: 'http://localhost:5173'
 }))
 
+app.use(express.urlencoded({ extended: true }));
+
 // app.use('/api/attempts',attemptRoute)
 // app.use('/api/data',problemsRoute)
 // app.use('/auth',authRoute)

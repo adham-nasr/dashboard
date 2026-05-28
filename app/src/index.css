@@ -27,6 +27,8 @@
   --muted: #6B6A66;
   --hint: #A09F9B;
   --accent: #2D3748;
+  --accentSoft: rgba(45,55,72,0.2);
+  --accentBg: rgba(45,55,72,0.1);
   --accentLight: #EEF0F4;
   --success: #1D9E75;
   --successBg: #E1F5EE;

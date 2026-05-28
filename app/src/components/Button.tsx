@@ -1,12 +1,13 @@
 import { C } from "../utils/constants";
 
-function Button({ children, onClick = () => {}, variant = "primary", style = {}, className, ...rest }: any) {
+function Button({ children, onClick = () => {}, type="submit",variant = "primary", style = {}, className, ...rest }: any) {
   const isPrimary = variant === "primary";
   return (
     <button
       {...rest}
       className={className}
       onClick={onClick}
+      type={type}
       style={{
         height: 38,
         padding: "0 20px",
