@@ -40,10 +40,10 @@ export const getAllLogs = async (request:AuthenticationRequest , response:Respon
     }
     if(level)
         filters["level"] = level.toString()
-    console.log(request.query)
-    // console.log(request)
-    console.log(request.params)
-    console.log(name)
+    
+    // 
+    
+    
     if(!name || Array.isArray(name))
         return response.status(400).json({message:"Invalid request"})
 
@@ -55,14 +55,14 @@ export const getAllLogs = async (request:AuthenticationRequest , response:Respon
                                     await fetchAllLogs(application._id.toString(),filters,sortingAlgo)
     let total = await countLogs(application._id.toString())
     total = total.length ? total[0] : total
-    console.log("TOTAL ... ")
-    console.log(total)
+    
+    
     return response.status(200).json({logs:logs,stats:total})
 }
 
 export const postLog = async (request:AuthenticationRequest , response:Response , next:NextFunction)=>{
-    console.log("reqUEST > BODY")
-    console.log(request.body)
+    
+    
     const userId = request.userId!;
     const name = request.params.name
     let logData:logType = request.body

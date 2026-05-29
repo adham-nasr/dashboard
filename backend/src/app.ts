@@ -8,24 +8,21 @@ const app = express();
 
 app.use(express.json())
 
+const allowedOrigins = ['http://localhost:5173' , 'https://tubular-zabaione-6d8c05.netlify.app'];
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: allowedOrigins,
 }))
 
 app.use(express.urlencoded({ extended: true }));
-
-// app.use('/api/attempts',attemptRoute)
-// app.use('/api/data',problemsRoute)
-// app.use('/auth',authRoute)
 
 app.use('/api/users',authRoute)
 app.use('/api/applications/:name/logs',logsRoute)
 app.use('/api/applications',applicationsRoute)
 app.use('/ping', (req:Request , res:Response , next:NextFunction) =>{res.status(200).json({message:"pong"})})
-// accumalted errors
 
+// accumalted errors
 app.use((error:Error,req:Request,res:Response,next:NextFunction)=>{
-    console.log(error)
+    
     res.status(500).json({message:"Internal Server Error"})
 })
 export default app

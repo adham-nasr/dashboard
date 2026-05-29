@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken"
 import type { JwtPayload } from "../types.js"
+import { config } from "../config.js"
 
-const JWT_SECRET = "1234"
+const JWT_SECRET = config.jwtSecret
 
 export const generateToken = (userInfo:JwtPayload) => {
     return jwt.sign(userInfo,JWT_SECRET,{expiresIn:"3d"})

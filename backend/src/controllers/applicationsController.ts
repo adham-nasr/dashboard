@@ -18,15 +18,8 @@ export const postApplication = async (request:AuthenticationRequest , response:R
     const applicationData:applicationType = request.body
     if(!applicationData || !applicationData.name)
         return response.status(400).json({message:"Invalid data"})
-    console.log("USER Id = ")
-    console.log(userId)
-    console.log(new mongoose.Types.ObjectId(userId))
-    console.log("Body")
-    console.log(request.body)
-    console.log("Application Data")
-    console.log(applicationData)
+
     applicationData.user_id = new mongoose.Types.ObjectId(userId)
-    console.log(applicationData)
     const data = await createApplication(applicationData)
     response.status(201).json(data)
 }
