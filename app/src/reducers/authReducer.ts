@@ -3,7 +3,7 @@ export const ACTION_TYPES = {
     SET:"set",
     DELETE:"delete"
 }
-export function authReducer(user,action){
+export function authReducer(user:any,action:any){
 
     switch(action.type)
     {
@@ -14,7 +14,7 @@ export function authReducer(user,action){
             return null
         }
         default: {
-            throw Error('Unknown action: ' + action.type);
+            throw Error('Unknown action: ' + action.type + " for " + user);
         }
     }
 }

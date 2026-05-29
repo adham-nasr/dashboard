@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from "react-router";
-import { C, NAV_ITEMS } from "../utils/constants";
 import "./SideBar.css";
 import { useAuth } from "../hooks/useAuth";
 import Button from "../components/Button";

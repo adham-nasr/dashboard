@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import { C } from "../utils/constants";
 import "./ApiKey.css";
 import { useAuth } from "../hooks/useAuth";
 
@@ -10,9 +9,6 @@ function ApiKey  () {
   const { user }= useAuth()
   const key = user?.apiKey || "sk-live-xK9mP2qR7vL4nW0aZ5bC8dE3fG6hI1jK4lM7";
 
-  const revealHandler = (val:boolean)=>{
-    setRevealed(val);
-  }
 
   const visibleApiValue = revealed ? key : key.slice(0, 10) + "••••••••••••••••••••••"
 

@@ -1,17 +1,14 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import Tag from "../components/Tag";
 import LogsTable from "../features/LogsTable";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import { C, STATUS_MAP } from "../utils/constants";
+import { C } from "../utils/constants";
 import "./Logs.css";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getLogsByApplicationName } from "../api/application";
 import { useAuth } from "../hooks/useAuth";
 import { ClipLoader } from "react-spinners";
-import { getLogsStats } from "../utils/helpers";
 import PieStat from "../features/PieStat";
 import Search from "../components/Search";
 

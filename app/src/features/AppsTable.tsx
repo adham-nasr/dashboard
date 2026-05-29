@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import Table from "../components/Table";
 import Tag from "../components/Tag";
-import { APPS, C, STATUS_MAP } from "../utils/constants";
+import { C, STATUS_MAP } from "../utils/constants";
 import type { Applications } from "../utils/types";
 import { useAuth } from "../hooks/useAuth";
 import {  deleteApplicationByName } from "../api/application";
@@ -27,7 +27,7 @@ function AppsTable({data}:{data:Applications}){
     }
 
 
-    const deleteHandler = (e:Event,name:string) => {
+    const deleteHandler = (e:any,name:string) => {
       e.preventDefault()
       e.stopPropagation()
       deleteMutation.mutate({name,apiKey:user!.apiKey})

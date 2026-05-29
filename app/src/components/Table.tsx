@@ -1,4 +1,3 @@
-import { APPS, C, STATUS_MAP } from "../utils/constants";
 import Card from "./Card";
 import TableHeader from "./TableHeader";
 import "./Table.css"

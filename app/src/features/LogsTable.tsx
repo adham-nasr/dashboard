@@ -8,7 +8,7 @@ function LogsTable({logs}:{logs:Logs}){
     return(
         <Table columns={["Message", "Level", "Count", "First Occurrence", "Last Occurrence"]}>
           <tbody>
-            {data.map((log, i) => (
+            {data.map((log) => (
               <tr key={log._id} style={{
                 borderBottom: `0.5px solid ${C.border}`,
               }}>
@@ -18,7 +18,6 @@ function LogsTable({logs}:{logs:Logs}){
                 <td><LevelBadge level={log.level} /></td>
                 <td style={{  color: C.text, fontWeight: 500 }}>{log.count?.toLocaleString() || 0}</td>
                 <td style={{  color: C.muted, whiteSpace: "nowrap" }}>{log.createdAt.toLocaleString()}</td>
-                {/* <td style={{  color: C.muted, whiteSpace: "nowrap" }}>{log.last}</td> */}
               </tr>
             ))}
           </tbody>

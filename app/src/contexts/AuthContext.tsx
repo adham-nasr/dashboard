@@ -1,15 +1,15 @@
 
 
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useReducer, } from 'react';
 import { authReducer } from '../reducers/authReducer';
-import type { AuthContextType, User } from '../utils/types';
+import type { AuthContextType } from '../utils/types';
 
 
 
 export const AuthContext = createContext({} as AuthContextType);
 
 
-export function AuthContextProvider ({children}){
+export function AuthContextProvider ({children}:any){
 
     const [user,dispatch] = useReducer(authReducer,null)
 

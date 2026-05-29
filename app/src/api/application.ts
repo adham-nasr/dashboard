@@ -1,6 +1,6 @@
 import axios from "axios"
 import { baseUrl } from "../utils/config"
-import type { Applications, Logs, recivedLogs } from "../utils/types";
+import type { Applications, recivedLogs } from "../utils/types";
 
 export const getApplications = async(apiKey:string)=>{
 
